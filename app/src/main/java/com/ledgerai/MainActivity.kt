@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+
 package com.ledgerai
 
 import android.os.Bundle
@@ -41,17 +43,15 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
         }
     }
     Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showAddSheet = true },
+                containerColor = MaterialTheme.colorScheme.primary
+            ) { Icon(Icons.Default.Add, contentDescription = "Add") }
+        },
+        floatingActionButtonPosition = FabPosition.Center,
         bottomBar = {
-            BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.surface,
-                floatingActionButton = {
-                    FloatingActionButton(
-                        onClick = { showAddSheet = true },
-                        containerColor = MaterialTheme.colorScheme.primary
-                    ) { Icon(Icons.Default.Add, contentDescription = "Add") }
-                },
-                floatingActionButtonPosition = FabPosition.Center
-            ) {
+            BottomAppBar(containerColor = MaterialTheme.colorScheme.surface) {
                 BottomNavigationBar(navController)
             }
         }
@@ -129,7 +129,7 @@ fun TransactionItem(txn: TransactionEntity) {
             Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(txn.description)
-                Text("${txn.creditAccountId} \u2192 ${txn.debitAccountId}", style = MaterialTheme.typography.bodySmall)
+                Text("${txn.creditAccountId} → ${txn.debitAccountId}", style = MaterialTheme.typography.bodySmall)
             }
         }
     }
